@@ -272,7 +272,41 @@ Now press CTRL+X, then SHIFT+Y then ENTER to save those changes
  
 ----
  
+### 1 : Google Cloud Essential Skills: Challenge Lab
 
+ #### Step 1 ####
+ 
+ Navigate to Compute Engine: VM INSTANCES
+ Click on *Create Instance*
+ Change the name, and the zone to those specified in the instructions page
+ Scroll down to Firewall
+  * Select **Allow HTTP Traffic**
+  * * Select **Allow HTTPS Traffic**
+ Click on CREATE
+ 
+ #### Step 2 ####
+ 
+ Once the VM Instance is created, press the SSH button
+ 
+ Copy and run the followinig commands in the Shell
+ 
+  To update the VM and install the Apache2 Server
+ 
+     sudo apt update && sudo apt -y install apache2
+
+  To verify that Apache is running
+ 
+     sudo systemctl status apache2
+ 
+  To overwrite the Apache web server default web page
+
+    echo '<!doctype html><html><body><h1>Hello World!</h1></body></html>' | sudo tee /var/www/html/index.html
+    
+    
+#### Success! 🎉 ####
+
+### References ###
+* https://cloud.google.com/compute/docs/tutorials/basic-webserver-apache
 
 
 
