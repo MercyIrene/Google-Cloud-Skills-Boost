@@ -135,12 +135,53 @@ gcloud compute reset-windows-password vm-bastionhost --user app_admin --zone us-
 #### Success! 🎉 ####
 
 ### References ###
-* https://www.youtube.com/watch?v=XLTW8Yeq8xM&t=127s 
-* https://www.youtube.com/watch?v=S06ew_wCbSs&t=191s
+* https://www.youtube.com/watch?v=XLTW8Yeq8xM
+* https://www.youtube.com/watch?v=S06ew_wCbSs
  
 ----
 
 ### 4 : Scale Out and Update a Containerized Application on a Kubernetes Cluster
+
+#### Step 1 ####
+
+    gsutil cp gs://sureskills-ql/challenge-labs/ch05-k8s-scale-and-update/echo-web-v2.tar.gz .
+
+    tar xvzf echo-web-v2.tar.gz
+
+    gcloud builds submit --tag gcr.io/$DEVSHELL_PROJECT_ID/echo-app:v2 .
+
+    gcloud container clusters get-credentials echo-cluster --zone us-central1-a
+
+    kubectl create deployment echo-web --image=gcr.io/qwiklabs-resources/echo-app:v1
+
+    kubectl expose deployment echo-web --type=LoadBalancer --port 80 --target-port 8000
+
+    kubectl edit deploy echo-web
+
+* Copy and paste the above code block and execute it in the Cloud Shell 
+
+#### Step 2 ####
+
+* A File will open, and we need to make one change.
+* Navigate down to *containers:* then to *image:*
+* Press *i* to start inserting text
+* Change the **v1** you see there to **v2**, to indicate the update of the image version
+* Press Esc, then type **:wq** Now press enter.
+
+
+#### Step 3 ####
+
+    kubectl scale deploy echo-web --replicas=2
+
+#### Success! 🎉 ####
+
+### References ###
+* https://www.youtube.com/watch?v=UGAL0jIxpuk
+* https://www.youtube.com/watch?v=6LYGSUPVQbQ
+ 
+----
+
+
   
 
 
