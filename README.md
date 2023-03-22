@@ -47,7 +47,7 @@
  
  #### Success! 🎉 ####
  
-  #### References ####
+  ### References ###
   * https://mayankchourasia2.medium.com/deploy-a-compute-instance-with-a-remote-startup-script-eb4d44145149
   * https://www.youtube.com/watch?v=3dEoBZ9t_-Q
 
@@ -100,5 +100,9 @@ gcloud compute reset-windows-password vm-bastionhost --user app_admin --zone us-
 
 
 #### Success! 🎉 ####
+
+### References ###
+* https://www.youtube.com/watch?v=ZeY_GOU55S8 
+* https://www.youtube.com/watch?v=yRMWtokgboE
  
  
