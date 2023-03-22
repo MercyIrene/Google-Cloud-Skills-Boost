@@ -158,7 +158,7 @@ gcloud compute reset-windows-password vm-bastionhost --user app_admin --zone us-
 
     kubectl edit deploy echo-web
 
-* Copy and paste the above code block and execute it in the Cloud Shell 
+Copy and paste the above code block and execute it in the Cloud Shell 
 
 #### Step 2 ####
 
@@ -181,7 +181,98 @@ gcloud compute reset-windows-password vm-bastionhost --user app_admin --zone us-
  
 ----
 
+### 5 : Migrate a MySQL Database to Google Cloud SQL
 
+#### Step 1 ####
+
+    export ZONE=us-central1-a
+
+    gcloud sql instances create wordpress --tier=db-n1-standard-1 --activation-policy=ALWAYS --gce-zone $ZONE
+
+    gcloud sql users set-password --host % root --instance wordpress --password Password1*
+    
+You can change the zone if the exercise requires you to choose a different one at this stage
+
+#### Step 2 ####
+
+    export ADDRESS=34.67.95.207/32
+
+    gcloud sql instances patch wordpress --authorized-networks $ADDRESS --quiet
+    
+Navigate to your VM Instances in Compute Engine
+  * Copy the External IP of the instance **blog**
+  * Paste it in the *ADDRESS=* part of the above code
   
+Execute the commands
+
+#### Step 3 ####
+Navigate to your VM Instances in Compute Engine
+* On the SSH button of the instance **blog**, click the dropdown button
+* Select *View Gcloud Command*
+* Copy that command
+
+Return to the Cloud Shell, and paste that command, and execute it
+
+For the Paraphrase, press Enter twice
+
+We are now in the blog VM instance
+
+#### Step 4 ####
+    MYSQLIP=$(gcloud sql instances describe wordpress --format="value(ipAddresses.ipAddress)")
+
+    mysql --host=$MYSQLIP \
+        --user=root --password
+        
+You will be prompted to provide a password. Copy and paste: **Password1***
+
+Now press enter
+
+Copy and paste the following
+
+    CREATE DATABASE wordpress;
+    CREATE USER 'blogadmin'@'%' IDENTIFIED BY 'Password1*';
+    GRANT ALL PRIVILEGES ON wordpress.* TO 'blogadmin'@'%';
+    FLUSH PRIVILEGES;
+
+Once done, type *exit* and press enter
+
+#### Step 5 ####
+
+    sudo mysqldump -u root -pPassword1* wordpress > wordpress_backup.sql
+
+    mysql --host=$MYSQLIP --user=root -pPassword1* --verbose wordpress < wordpress_backup.sql
+
+    sudo service apache2 restart
+
+    cd /var/www/html/wordpress
+
+    sudo nano wp-config.php
+    
+Copy the above code and run it in the Cloud Shell
+
+A file will be opened (the wp-config.php)
+
+* Scroll down to **MYSQL HOSTNAME**
+
+Open SQL on your Cloud Console in a new tab.
+* On the database created, named *wordpress*, copy its **Public IP Address**
+
+Return to the cloud shell at MYSQL HOSTNAME
+* Replace *localhost* with the IP Address just copied
+
+ *Make sure the IP Address is still within single quotaton marks in the file*
+ 
+Now press CTRL+X, then SHIFT+Y then ENTER to save those changes
+
+
+#### Success! 🎉 ####
+
+### References ###
+* https://youtu.be/sY3RHI6nvQ4
+ 
+----
+ 
+
+
 
 
