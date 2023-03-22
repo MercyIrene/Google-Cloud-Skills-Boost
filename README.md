@@ -105,4 +105,40 @@ gcloud compute reset-windows-password vm-bastionhost --user app_admin --zone us-
 * https://www.youtube.com/watch?v=ZeY_GOU55S8 
 * https://www.youtube.com/watch?v=yRMWtokgboE
  
+ ----
  
+### 3 : Build and Deploy a Docker Image to a Kubernetes Cluster
+
+#### Task 1: Built Docker image with tag V1
+    gsutil cp gs://$DEVSHELL_PROJECT_ID/echo-web.tar.gz .
+    
+#### Task 2: Extract downloaded zip
+    tar -xvf echo-web.tar.gz
+
+    gcloud builds submit --tag gcr.io/$DEVSHELL_PROJECT_ID/echo-app:v1 .
+    
+#### Task 3: Create Kubernetes cluster
+    gcloud container clusters create echo-cluster --num-nodes 2 --zone us-central1-a --machine-type n1-standard-2
+
+#### Task 4: Deploy application to Kubernetes cluster
+    kubectl create deployment echo-web --image=gcr.io/qwiklabs-resources/echo-app:v1
+
+#### Task 5: Expose app to allow external access
+    kubectl expose deployment echo-web --type=LoadBalancer --port=80 --target-port=8000
+    
+#### Task 6: Extract Kubernetes services
+    kubectl get svc
+      
+    
+#### Success! 🎉 ####
+
+### References ###
+* https://www.youtube.com/watch?v=XLTW8Yeq8xM&t=127s 
+* https://www.youtube.com/watch?v=S06ew_wCbSs&t=191s
+ 
+----
+
+### 4 : Scale Out and Update a Containerized Application on a Kubernetes Cluster
+  
+
+
