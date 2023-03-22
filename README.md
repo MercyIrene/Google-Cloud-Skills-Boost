@@ -308,5 +308,12 @@ Now press CTRL+X, then SHIFT+Y then ENTER to save those changes
 ### References ###
 * https://cloud.google.com/compute/docs/tutorials/basic-webserver-apache
 
+----
+
+----
 
 
+## Congratulations 🏅 
+## Leave a <img src="https://em-content.zobj.net/thumbs/120/samsung/349/star_2b50.png" width="50" height="50"> if this has been helpful to you
+
+<img src="https://em-content.zobj.net/thumbs/120/samsung/349/waving-hand_1f44b.png"><img src="https://em-content.zobj.net/thumbs/120/samsung/349/waving-hand_1f44b.png"><img src="https://em-content.zobj.net/thumbs/120/samsung/349/waving-hand_1f44b.png">
